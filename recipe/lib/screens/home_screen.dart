@@ -445,7 +445,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'My Custom Recipes',
+                  'My Recipes',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -456,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SliverToBoxAdapter(
           child: SizedBox(
-            height: 240,
+            height: 210,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -516,13 +516,13 @@ class _HomeScreenState extends State<HomeScreen> {
       SliverToBoxAdapter(
         child: provider.isFeaturedLoading
             ? const SizedBox(
-                height: 235,
+                height: 200,
                 child: Center(child: CircularProgressIndicator()),
               )
             : provider.featuredRecipes.isEmpty
                 ? const SizedBox.shrink()
                  : SizedBox(
-                    height: 235,
+                    height: 200,
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: (provider.featuredRecipes.length / 2).ceil(),
@@ -673,7 +673,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
-        childAspectRatio: 0.63,
+        childAspectRatio: 0.73,
       ),
       itemCount: recipes.length,
       itemBuilder: (context, index) {

@@ -15,7 +15,6 @@ class FilipinoRecipesData {
       category: 'Main Course',
       area: 'Bicol',
       thumbnail: 'assets/bicol express.jpg',
-      tags: 'Spicy,Coconut,Pork',
       ingredients: [
         Ingredient(name: 'Pork belly', measure: '500g, cut into 1-inch strips'),
         Ingredient(name: 'Coconut milk (gata)', measure: '2 cups'),
@@ -52,7 +51,6 @@ Step 8 — Render the Oil: Continue simmering until the liquid reduces drastical
       category: 'Soup',
       area: 'Batangas',
       thumbnail: 'assets/bulalo.jpg',
-      tags: 'Beef,Soup,Bone Marrow',
       ingredients: [
         Ingredient(name: 'Beef shank (bone-in marrow)', measure: '1 kg'),
         Ingredient(name: 'Yellow onion', measure: '1 large, halved'),
@@ -88,7 +86,6 @@ Step 8 — Wilt the Greens: Arrange the cabbage wedges and pechay stalks into th
       category: 'Main Course',
       area: 'Batangas',
       thumbnail: 'assets/caldereta.jpg',
-      tags: 'Beef,Tomato,Stew',
       ingredients: [
         Ingredient(name: 'Beef brisket or chuck', measure: '1 kg, cut into 2-inch cubes'),
         Ingredient(name: 'Potatoes', measure: '2 medium, peeled and cubed'),
@@ -127,7 +124,6 @@ Step 8 — Add Peppers and Finish: Mix in the red and green bell peppers. Simmer
       category: 'Main Course',
       area: 'Cavite',
       thumbnail: 'assets/chicken adobo.jpg',
-      tags: 'Chicken,Adobo,Soy Sauce',
       ingredients: [
         Ingredient(name: 'Chicken pieces (thighs and drumsticks)', measure: '1 kg'),
         Ingredient(name: 'Soy sauce', measure: '1/2 cup'),
@@ -162,7 +158,6 @@ Step 8 — Reduce the Gravy: Return the seared chicken back into the original po
       category: 'Dessert',
       area: 'Pampanga',
       thumbnail: 'assets/halo-halo.jpg',
-      tags: 'Dessert,Cold,Summer',
       ingredients: [
         Ingredient(name: 'Finely shaved or crushed ice', measure: '2 cups'),
         Ingredient(name: 'Evaporated milk', measure: '1/2 cup'),
@@ -200,7 +195,6 @@ Step 8 — The Final Scoop: Place a large scoop of ube ice cream right at the pe
       category: 'Main Course',
       area: 'Pampanga',
       thumbnail: 'assets/kare-kare.jpg',
-      tags: 'Oxtail,Peanut,Stew',
       ingredients: [
         Ingredient(name: 'Oxtail or beef tripe', measure: '1 kg, cut into pieces'),
         Ingredient(name: 'Smooth peanut butter', measure: '3/4 cup'),
@@ -237,7 +231,6 @@ Step 8 — Assemble and Serve: Arrange the meat and blanched vegetables into a l
       category: 'Main Course',
       area: 'Bicol',
       thumbnail: 'assets/laing.jpg',
-      tags: 'Coconut,Taro,Spicy',
       ingredients: [
         Ingredient(name: 'Dried taro leaves (gabi)', measure: '100g'),
         Ingredient(name: 'Thin coconut milk (gata)', measure: '4 cups'),
@@ -272,7 +265,6 @@ Step 8 — Render and Serve: Simmer uncovered, stirring occasionally, for 10 to 
       category: 'Appetizer',
       area: 'Manila',
       thumbnail: 'assets/lumpia.jpg',
-      tags: 'Fried,Pork,Spring Roll',
       ingredients: [
         Ingredient(name: 'Lumpia wrappers', measure: '1 pack'),
         Ingredient(name: 'Ground pork', measure: '500g'),
@@ -309,7 +301,6 @@ Step 8 — Deep Fry and Drain: Slide the lumpia into the hot oil in batches. Fry
       category: 'Dessert',
       area: 'Laguna',
       thumbnail: 'assets/maja blanca.jpg',
-      tags: 'Coconut,Dessert,Sweet',
       ingredients: [
         Ingredient(name: 'Coconut milk (gata)', measure: '4 cups'),
         Ingredient(name: 'Cornstarch', measure: '1 cup'),
@@ -342,7 +333,6 @@ Step 8 — Chill and Garnish: Allow it to cool completely at room temperature, t
       category: 'Main Course',
       area: 'Manila',
       thumbnail: 'assets/menudo.jpg',
-      tags: 'Pork,Liver,Tomato',
       ingredients: [
         Ingredient(name: 'Pork shoulder', measure: '500g, cut into 1/2-inch cubes'),
         Ingredient(name: 'Pork liver', measure: '200g, cut into 1/2-inch cubes'),
@@ -382,7 +372,6 @@ Step 8 — Season and Serve: Taste the gravy and add the fish sauce (patis) to p
       category: 'Main Course',
       area: 'Manila',
       thumbnail: 'assets/pares.jpg',
-      tags: 'Beef,Star Anise,Sweet',
       ingredients: [
         Ingredient(name: 'Beef brisket', measure: '1 kg, cut into 1.5-inch cubes'),
         Ingredient(name: 'Soy sauce', measure: '1/2 cup'),
@@ -418,7 +407,6 @@ Step 8 — Garnish and Plate: In a separate small pan, fry the remaining garlic 
       category: 'Main Course',
       area: 'Ilocos',
       thumbnail: 'assets/pinakbet.jpg',
-      tags: 'Vegetables,Bagoong,Bitter Melon',
       ingredients: [
         Ingredient(name: 'Squash (kabalasa)', measure: '200g, cut into cubes'),
         Ingredient(name: 'Eggplant', measure: '1 large, sliced diagonally'),
@@ -455,7 +443,6 @@ Step 8 — Toss and Serve: Instead of using a spoon, occasionally lift the pot b
       category: 'Main Course',
       area: 'Cavite',
       thumbnail: 'assets/pork adobo.jpg',
-      tags: 'Pork,Adobo,Vinegar',
       ingredients: [
         Ingredient(name: 'Pork belly (liempo)', measure: '1 kg, cut into 2-inch chunks'),
         Ingredient(name: 'Soy sauce', measure: '1/2 cup'),
@@ -490,7 +477,6 @@ Step 8 — Glaze and Serve: Simmer uncovered over medium heat for 5 minutes unti
       category: 'Snack',
       area: 'Laguna',
       thumbnail: 'assets/puto.jpg',
-      tags: 'Steamed,Rice Cake,Snack',
       ingredients: [
         Ingredient(name: 'All-purpose flour', measure: '2 cups'),
         Ingredient(name: 'Granulated sugar', measure: '1 cup'),
@@ -525,7 +511,6 @@ Step 8 — Cool and Unmold: Remove from the steamer and let them cool down for 5
       category: 'Soup',
       area: 'Manila',
       thumbnail: 'assets/sinigang.jpg',
-      tags: 'Pork,Sour,Soup',
       ingredients: [
         Ingredient(name: 'Pork ribs or pork belly chunks', measure: '1 kg'),
         Ingredient(name: 'Tamarind soup base mix (sinigang mix)', measure: '1 pack (22g)'),
@@ -562,7 +547,6 @@ Step 8 — The Carryover Wilt: Turn off the stove completely, scatter the delica
       category: 'Main Course',
       area: 'Pampanga',
       thumbnail: 'assets/sisig.jpg',
-      tags: 'Pork,Sizzling,Calamansi',
       ingredients: [
         Ingredient(name: 'Pork face (ears and snout) or pork belly', measure: '1 kg'),
         Ingredient(name: 'Chicken livers', measure: '2 large'),
@@ -599,7 +583,6 @@ Step 8 — Sizzling Presentation: If using a cast-iron sizzling plate, heat it u
       category: 'Soup',
       area: 'Manila',
       thumbnail: 'assets/tinola.jpg',
-      tags: 'Chicken,Ginger,Soup',
       ingredients: [
         Ingredient(name: 'Chicken pieces', measure: '1 kg'),
         Ingredient(name: 'Green papaya or chayote', measure: '1 small, cut into wedges'),
@@ -635,7 +618,6 @@ Step 8 — Steep the Greens: Taste the broth, adjust with salt if needed, then t
       category: 'Dessert',
       area: 'Bohol',
       thumbnail: 'assets/ube halaya.jpg',
-      tags: 'Purple Yam,Dessert,Sweet',
       ingredients: [
         Ingredient(name: 'Raw purple yam (ube)', measure: '1 kg'),
         Ingredient(name: 'Sweet condensed milk', measure: '1 can (370ml)'),

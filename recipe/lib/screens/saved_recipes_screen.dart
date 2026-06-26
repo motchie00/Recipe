@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -182,26 +183,7 @@ class SavedRecipesScreen extends StatelessWidget {
                 // Recipe thumbnail
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: favorite['recipeImage'] ?? '',
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Container(
-                      width: 80,
-                      height: 80,
-                      color: AppTheme.outlineColor.withValues(alpha: 0.3),
-                      child: const Icon(Icons.restaurant_rounded,
-                          color: AppTheme.outlineColor),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      width: 80,
-                      height: 80,
-                      color: AppTheme.outlineColor.withValues(alpha: 0.3),
-                      child: const Icon(Icons.broken_image_rounded,
-                          color: AppTheme.outlineColor),
-                    ),
-                  ),
+                  child: _buildRecipeImage(favorite['recipeImage'] ?? ''),
                 ),
                 const SizedBox(width: 14),
 
@@ -277,5 +259,77 @@ class SavedRecipesScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Build recipe image helper supporting network, assets, or base64 images
+  Widget _buildRecipeImage(String thumbnail) {
+    if (thumbnail.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: thumbnail,
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Container(
+          width: 80,
+          height: 80,
+          color: AppTheme.outlineColor.withValues(alpha: 0.3),
+          child: const Icon(Icons.restaurant_rounded,
+              color: AppTheme.outlineColor),
+        ),
+        errorWidget: (context, url, error) => Container(
+          width: 80,
+          height: 80,
+          color: AppTheme.outlineColor.withValues(alpha: 0.3),
+          child: const Icon(Icons.broken_image_rounded,
+              color: AppTheme.outlineColor),
+        ),
+      );
+    } else if (thumbnail.startsWith('assets/')) {
+      return Image.asset(
+        thumbnail,
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Container(
+          width: 80,
+          height: 80,
+          color: AppTheme.outlineColor.withValues(alpha: 0.3),
+          child: const Icon(Icons.broken_image_rounded,
+              color: AppTheme.outlineColor),
+        ),
+      );
+    } else if (thumbnail.isNotEmpty) {
+      try {
+        return Image.memory(
+          base64Decode(thumbnail),
+          width: 80,
+          height: 80,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            width: 80,
+            height: 80,
+            color: AppTheme.outlineColor.withValues(alpha: 0.3),
+            child: const Icon(Icons.broken_image_rounded,
+                color: AppTheme.outlineColor),
+          ),
+        );
+      } catch (_) {
+        return Container(
+          width: 80,
+          height: 80,
+          color: AppTheme.outlineColor.withValues(alpha: 0.3),
+          child: const Icon(Icons.broken_image_rounded,
+              color: AppTheme.outlineColor),
+        );
+      }
+    } else {
+      return Container(
+        width: 80,
+        height: 80,
+        color: AppTheme.outlineColor.withValues(alpha: 0.3),
+        child: const Icon(Icons.restaurant_rounded,
+            color: AppTheme.outlineColor),
+      );
+    }
   }
 }

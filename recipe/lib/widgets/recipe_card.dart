@@ -105,7 +105,7 @@ class RecipeCard extends StatelessWidget {
                 top: Radius.circular(20),
               ),
               child: SizedBox(
-                height: 110,
+                height: 120,
                 width: double.infinity,
                 child: _buildImage(),
               ),
@@ -130,11 +130,11 @@ class RecipeCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Spacer(),
-                    // Category & Area Badges
+                    // Category & Area Badges (stacked vertically)
                     Wrap(
-                      spacing: 6,
-                      runSpacing: 4,
-                      crossAxisAlignment: WrapCrossAlignment.center,
+                      direction: Axis.vertical,
+                      spacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.start,
                       children: [
                         if (category.isNotEmpty)
                           _buildBadge(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/app_theme.dart';
-import '../services/api_service.dart';
+import '../services/feedback_service.dart';
+import '../providers/feedback_provider.dart';
 
 /// Screen where users can submit feedback (rating, category, comments).
 class FeedbackScreen extends StatefulWidget {
@@ -27,6 +29,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<FeedbackProvider>().loadFeedback();
+    });
+  }
+
+  @override
   void dispose() {
     _commentController.dispose();
     super.dispose();
@@ -39,13 +49,12 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       _isSubmitting = true;
     });
 
-    // Simulate sending to backend
     try {
-      await ApiService.post('/feedback', {
-        'category': _selectedCategory,
-        'rating': _rating,
-        'comments': _commentController.text.trim(),
-      });
+      await FeedbackService.submitFeedback(
+        category: _selectedCategory,
+        rating: _rating,
+        comments: _commentController.text.trim(),
+      );
     } catch (_) {
       // Ignore connection errors/404 for mock/dev environment
     }
@@ -133,7 +142,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 onPressed: widget.onMenuPressed,
               )
             : null,
-        title: const Text('App Feedback'),
+        title: const Text('Feedback'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -188,37 +197,45 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               const SizedBox(height: 12),
 
               // Category Choice Chips
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: _categories.map((category) {
-                  final isSelected = _selectedCategory == category;
-                  return ChoiceChip(
-                    label: Text(category),
-                    selected: isSelected,
-                    onSelected: (selected) {
-                      if (selected) {
-                        setState(() => _selectedCategory = category);
-                      }
-                    },
-                    selectedColor: AppTheme.primaryColor.withValues(alpha: 0.15),
-                    labelStyle: TextStyle(
-                      color: isSelected
-                          ? AppTheme.primaryColor
-                          : AppTheme.onSurfaceColor.withValues(alpha: 0.7),
-                      fontWeight:
-                          isSelected ? FontWeight.bold : FontWeight.normal,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
-                        color: isSelected
-                            ? AppTheme.primaryColor
-                            : AppTheme.outlineColor,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: _categories.map((category) {
+                    final isSelected = _selectedCategory == category;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: ChoiceChip(
+                        label: Text(category),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (selected) {
+                            setState(() => _selectedCategory = category);
+                          }
+                        },
+                        selectedColor:
+                            AppTheme.primaryColor.withValues(alpha: 0.15),
+                        labelStyle: TextStyle(
+                          color: isSelected
+                              ? AppTheme.primaryColor
+                              : AppTheme.onSurfaceColor.withValues(alpha: 0.7),
+                          fontWeight: FontWeight.w600,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: isSelected
+                                ? AppTheme.primaryColor
+                                : AppTheme.outlineColor,
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 12,
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
+                    );
+                  }).toList(),
+                ),
               ),
               const SizedBox(height: 28),
 
@@ -335,6 +352,116 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                           ),
                   ),
                 ),
+              ),
+              const SizedBox(height: 24),
+              Consumer<FeedbackProvider>(
+                builder: (context, provider, _) {
+                  if (provider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (provider.feedback.isEmpty) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Your Feedback',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'No feedback submitted yet. Your past feedback will appear here once submitted.',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: AppTheme.onSurfaceColor.withValues(alpha: 0.6),
+                              ),
+                        ),
+                      ],
+                    );
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Your Feedback',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 12),
+                      ...provider.feedback.map((item) {
+                        return Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 12),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppTheme.surfaceColor,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AppTheme.outlineColor),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      item['category'] ?? '',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Row(
+                                    children: List.generate(5, (index) {
+                                      final starValue = index + 1;
+                                      return Icon(
+                                        starValue <= (item['rating'] ?? 0)
+                                            ? Icons.star_rounded
+                                            : Icons.star_outline_rounded,
+                                        color: Colors.amber,
+                                        size: 16,
+                                      );
+                                    }),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                item['comments'] ?? '',
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppTheme.onSurfaceColor.withValues(alpha: 0.8),
+                                    ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                item['createdAt'] != null
+                                    ? DateTime.parse(item['createdAt']).toLocal().toString().split('.')[0]
+                                    : '',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppTheme.onSurfaceColor.withValues(alpha: 0.5),
+                                    ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  );
+                },
               ),
             ],
           ),

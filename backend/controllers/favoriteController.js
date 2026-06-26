@@ -7,6 +7,7 @@ const getFavorites = async (req, res) => {
   try {
     const favorites = await Favorite.find({ userId: req.user.id })
       .sort({ createdAt: -1 });
+    console.log('Favorites fetched:', JSON.stringify(favorites, null, 2));
     res.json({ favorites });
   } catch (err) {
     console.error('Get favorites error:', err.message);
@@ -20,6 +21,8 @@ const getFavorites = async (req, res) => {
 const addFavorite = async (req, res) => {
   try {
     const { recipeId, recipeName, recipeImage, recipeCategory, recipeArea } = req.body;
+
+    console.log('Adding favorite with image:', recipeImage);
 
     if (!recipeId || !recipeName) {
       return res.status(400).json({ message: 'Recipe ID and name are required' });
@@ -45,6 +48,7 @@ const addFavorite = async (req, res) => {
     });
 
     await favorite.save();
+    console.log('Favorite saved:', JSON.stringify(favorite, null, 2));
     res.status(201).json({ message: 'Recipe saved', favorite });
   } catch (err) {
     // Handle duplicate key error gracefully

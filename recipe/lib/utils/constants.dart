@@ -4,9 +4,17 @@ class AppConstants {
   // API Configuration
   // ===========================================
 
-  /// Backend base URL — change this to your deployed server URL
-  /// For Android emulator, use 10.0.2.2 to access host machine's localhost
-  static const String backendBaseUrl = 'http://localhost:3000/api';
+  /// Set to true to use local backend, false for deployed server
+  static const bool useLocalBackend = false;
+
+  /// Local backend URL (for development)
+  static const String localBackendUrl = 'http://localhost:3000/api';
+
+  /// Deployed backend URL (production)
+  static const String deployedBackendUrl = 'https://recipe-myxl.onrender.com/api';
+
+  /// Backend base URL — automatically selects based on useLocalBackend flag
+  static String get backendBaseUrl => useLocalBackend ? localBackendUrl : deployedBackendUrl;
 
   /// TheMealDB API base URL (free test key "1")
   static const String mealDbBaseUrl = 'https://www.themealdb.com/api/json/v1/1';

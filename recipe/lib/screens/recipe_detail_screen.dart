@@ -171,26 +171,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         ],
                       ),
 
-                      // Tags
-                      if (recipe.tags != null &&
-                          recipe.tags!.isNotEmpty) ...[
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 8,
-                          children: recipe.tags!
-                              .split(',')
-                              .map((tag) => Chip(
-                                    label: Text(
-                                      tag.trim(),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    visualDensity: VisualDensity.compact,
-                                  ))
-                              .toList(),
-                        ),
-                      ],
+
 
                       const SizedBox(height: 28),
 

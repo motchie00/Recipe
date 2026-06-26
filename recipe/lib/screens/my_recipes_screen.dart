@@ -23,7 +23,7 @@ class MyRecipesScreen extends StatelessWidget {
                 onPressed: onMenuPressed,
               )
             : null,
-        title: const Text('My Custom Recipes'),
+        title: const Text('My Recipes'),
       ),
       body: Consumer<CustomRecipesProvider>(
         builder: (context, provider, _) {
@@ -74,7 +74,7 @@ class MyRecipesScreen extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              childAspectRatio: 0.65,
+              childAspectRatio: 0.8,
             ),
             itemCount: customList.length,
             itemBuilder: (context, index) {

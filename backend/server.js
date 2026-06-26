@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipes');
 const favoriteRoutes = require('./routes/favorites');
 const customRecipeRoutes = require('./routes/customRecipes');
+const feedbackRoutes = require('./routes/feedback');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,6 +48,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/custom-recipes', customRecipeRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

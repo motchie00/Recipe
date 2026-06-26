@@ -4,6 +4,7 @@ import 'providers/auth_provider.dart';
 import 'providers/recipe_provider.dart';
 import 'providers/favorite_provider.dart';
 import 'providers/custom_recipes_provider.dart';
+import 'providers/feedback_provider.dart';
 import 'screens/splash_screen.dart';
 import 'utils/app_theme.dart';
 
@@ -23,6 +24,7 @@ class RecipeApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RecipeProvider()),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => CustomRecipesProvider()),
+        ChangeNotifierProvider(create: (_) => FeedbackProvider()),
       ],
       child: MaterialApp(
         title: 'Pinas Sarap',

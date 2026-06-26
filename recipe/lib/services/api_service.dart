@@ -5,13 +5,7 @@ import '../utils/constants.dart';
 
 /// Base API service with common HTTP methods and auth header injection.
 class ApiService {
-  /// Enter your computer's local IP address here for physical mobile device testing.
-  /// If empty, it will default to AppConstants.backendBaseUrl.
-  static const String localIp = '192.168.1.100';
-
-  static String get baseUrl => localIp.isNotEmpty
-      ? 'http://$localIp:3000/api'
-      : AppConstants.backendBaseUrl;
+  static String get baseUrl => AppConstants.backendBaseUrl;
 
   /// GET request to the backend
   static Future<http.Response> get(String endpoint) async {
