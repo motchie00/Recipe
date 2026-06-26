@@ -24,6 +24,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureConfirmPassword = true;
 
   @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(_onPasswordChanged);
+  }
+
+  void _onPasswordChanged() {
+    setState(() {});
+  }
+
+  double _calculatePasswordStrength(String password) {
+    if (password.isEmpty) return 0.0;
+    if (password.length < 8) return 0.2; // Weak if less than 8 characters
+    
+    double strength = 0.2;
+    
+    // Contains lowercase letters
+    if (RegExp(r'[a-z]').hasMatch(password)) strength += 0.2;
+    // Contains uppercase letters
+    if (RegExp(r'[A-Z]').hasMatch(password)) strength += 0.2;
+    // Contains numbers
+    if (RegExp(r'[0-9]').hasMatch(password)) strength += 0.2;
+    // Contains special characters
+    if (RegExp(r'[!@#\$&*~._-]').hasMatch(password)) strength += 0.2;
+    
+    return strength.clamp(0.0, 1.0);
+  }
+
+  String _getPasswordStrengthText(double strength) {
+    if (strength == 0.0) return '';
+    if (strength <= 0.4) return 'Weak';
+    if (strength <= 0.7) return 'Medium';
+    return 'Strong';
+  }
+
+  Color _getPasswordStrengthColor(double strength) {
+    if (strength <= 0.4) return AppTheme.errorColor;
+    if (strength <= 0.7) return Colors.orange;
+    return Colors.green;
+  }
+
+  @override
   void dispose() {
     _fullNameController.dispose();
     _emailController.dispose();
@@ -151,7 +192,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 16),
+                if (_passwordController.text.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Builder(
+                    builder: (context) {
+                      final strength = _calculatePasswordStrength(_passwordController.text);
+                      final strengthColor = _getPasswordStrengthColor(strength);
+                      final strengthText = _getPasswordStrengthText(strength);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Password Strength:',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppTheme.onSurfaceColor.withValues(alpha: 0.6),
+                                    ),
+                              ),
+                              Text(
+                                strengthText,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: strengthColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: LinearProgressIndicator(
+                              value: strength,
+                              backgroundColor: AppTheme.outlineColor.withValues(alpha: 0.3),
+                              valueColor: AlwaysStoppedAnimation<Color>(strengthColor),
+                              minHeight: 6,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                ] else ...[
+                  const SizedBox(height: 16),
+                ],
 
                 // Confirm Password field
                 CustomTextField(

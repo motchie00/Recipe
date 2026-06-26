@@ -55,6 +55,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         rating: _rating,
         comments: _commentController.text.trim(),
       );
+      if (mounted) {
+        context.read<FeedbackProvider>().loadFeedback();
+      }
     } catch (_) {
       // Ignore connection errors/404 for mock/dev environment
     }
